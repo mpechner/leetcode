@@ -1,0 +1,31 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        valid ='[]{}()'
+        pair = {']':'[', '}':'{', ')':'('}
+        for ch in s:
+            if ch not in valid:
+                continue
+            if ch in '([{':
+                stack.append(ch)
+            else:
+                if len(stack) >= 1 and stack[-1:][0] == pair[ch]:
+                    stack.pop()
+                else:
+                    return False
+
+        if len(stack): return False
+        return True
+
+if __name__ == "__main__":
+    sol = Solution()
+    val = '()'
+    print(val, sol.isValid(val))
+    val = '{{ (( ))[] }}'
+    print(val, sol.isValid(val))
+    val = '([)'
+    print(val, sol.isValid(val))
+    val = '()['
+    print(val, sol.isValid(val))
+    dval = '()]'
+    print(val, sol.isValid(val))
